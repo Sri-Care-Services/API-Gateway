@@ -93,23 +93,27 @@ const services = [
     // Service Activation/Deactivation (Port 8083)
     {
         route: "/registerPackage",
-        target: "http://localhost:8083/registerPackage"
+        target: "http://localhost:8083/api/v1/package/registerPackage"
     },
     {
         route: "/updatePackage",
-        target: "http://localhost:8083/updatePackage"
+        target: "http://localhost:8083/api/v1/package/updatePackage"
     },
     {
         route: "/getAllPackages",
-        target: "http://localhost:8083/getAllPackages"
+        target: "http://localhost:8083/api/v1/package/getAllPackages"
     },
     {
         route: "/getActivePackages",
-        target: "http://localhost:8083/getActivePackages"
+        target: "http://localhost:8083/api/v1/package/getActivePackages"
     },
     {
         route: "/activatePackage",
-        target: "http://localhost:8083/activatePackage"
+        target: "http://localhost:8083/api/v1/package/activatePackage"
+    },
+    {
+        route: "/deactivatePackage",
+        target: "http://localhost:8083/api/v1/package/deactivatePackage"
     },
 
     // Chat (Port 8084)
