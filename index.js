@@ -59,39 +59,51 @@ const services = [
     // User Management (Port 8080)
     {
         route: "/register",
-        target: "http://localhost:8080/register"
+        target: "http://localhost:8080/auth/register"
     },
     {
         route: "/login",
-        target: "http://localhost:8080/login"
+        target: "http://localhost:8080/auth/login"
+    },
+    {
+        route: "/refresh",
+        target: "http://localhost:8080/auth/refresh"
     },
     {
         route: "/getAllUsers",
-        target: "http://localhost:8080/getAllUsers"
+        target: "http://localhost:8080/auth/get-all-users"
     },
     {
         route: "/getUserById",
-        target: "http://localhost:8080/getUserById"
+        target: "http://localhost:8080/admin/get-user"
     },
     {
         route: "/deleteUser",
-        target: "http://localhost:8080/deleteUser"
+        target: "http://localhost:8080/admin/delete-user"
     },
     {
         route: "/updateUser",
-        target: "http://localhost:8080/updateUser"
+        target: "http://localhost:8080/admin/update-user"
+    },
+    {
+        route: "/viewProfile",
+        target: "http://localhost:8080/user/view-profile"
     },
     {
         route: "/getPhoneNumber",
-        target: "http://localhost:8080/getPhoneNumber"
+        target: "http://localhost:8080/service/get-number"
     },
     {
         route: "/getEmail",
-        target: "http://localhost:8080/getEmail"
+        target: "http://localhost:8080/service/get-email"
+    },
+    {
+        route: "/getName",
+        target: "http://localhost:8080/service/get-name"
     },
     {
         route: "/getCustomersList",
-        target: "http://localhost:8080/getCustomersList"
+        target: "http://localhost:8080/service/get-all-customers"
     },
 
     // Service Activation/Deactivation (Port 8083)
