@@ -15,23 +15,27 @@ const services = [
     // Billing (Port 8081)
     {
         route: "/makePayment",
-        target: "http://localhost:8081/makePayment"
+        target: "http://localhost:8081/payment"
     },
     {
         route: "/createBillingDetails",
-        target: "http://localhost:8081/createBillingDetails"
+        target: "http://localhost:8081/details"
     },
     {
         route: "/getBillingDetails",
-        target: "http://localhost:8081/getBillingDetails"
+        target: "http://localhost:8081/details"
     },
     {
         route: "/updateBillingDetails",
-        target: "http://localhost:8081/updateBillingDetails"
+        target: "http://localhost:8081/details"
     },
     {
         route: "/getPaymentHistory",
-        target: "http://localhost:8081/getPaymentHistory"
+        target: "http://localhost:8081/history"
+    },
+    {
+        route: "/emailMonthlyStatement",
+        target: "http://localhost:8081/email/statement"
     },
 
     // Notification (Port 8082)
