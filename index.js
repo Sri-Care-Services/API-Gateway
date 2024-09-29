@@ -15,7 +15,7 @@ const services = [
     // Billing (Port 8081)
     {
         route: "/makePayment",
-        target: "http://localhost:8081/makePayment"
+        target: "http://localhost:8081/payment"
     },
     {
         route: "/createBillingDetails",
@@ -27,11 +27,15 @@ const services = [
     },
     {
         route: "/updateBillingDetails",
-        target: "http://localhost:8081/updateBillingDetails"
+        target: "http://localhost:8081/details"
     },
     {
         route: "/getPaymentHistory",
-        target: "http://localhost:8081/getPaymentHistory"
+        target: "http://localhost:8081/history"
+    },
+    {
+        route: "/emailMonthlyStatement",
+        target: "http://localhost:8081/email/statement"
     },
 
     // Notification (Port 8082)
@@ -55,61 +59,77 @@ const services = [
     // User Management (Port 8080)
     {
         route: "/register",
-        target: "http://localhost:8080/register"
+        target: "http://localhost:8080/auth/register"
     },
     {
         route: "/login",
-        target: "http://localhost:8080/login"
+        target: "http://localhost:8080/auth/login"
+    },
+    {
+        route: "/refresh",
+        target: "http://localhost:8080/auth/refresh"
     },
     {
         route: "/getAllUsers",
-        target: "http://localhost:8080/getAllUsers"
+        target: "http://localhost:8080/auth/get-all-users"
     },
     {
         route: "/getUserById",
-        target: "http://localhost:8080/getUserById"
+        target: "http://localhost:8080/admin/get-user"
     },
     {
         route: "/deleteUser",
-        target: "http://localhost:8080/deleteUser"
+        target: "http://localhost:8080/admin/delete-user"
     },
     {
         route: "/updateUser",
-        target: "http://localhost:8080/updateUser"
+        target: "http://localhost:8080/admin/update-user"
+    },
+    {
+        route: "/viewProfile",
+        target: "http://localhost:8080/user/view-profile"
     },
     {
         route: "/getPhoneNumber",
-        target: "http://localhost:8080/getPhoneNumber"
+        target: "http://localhost:8080/service/get-number"
     },
     {
         route: "/getEmail",
-        target: "http://localhost:8080/getEmail"
+        target: "http://localhost:8080/service/get-email"
+    },
+    {
+        route: "/getName",
+        target: "http://localhost:8080/service/get-name"
     },
     {
         route: "/getCustomersList",
-        target: "http://localhost:8080/getCustomersList"
+        target: "http://localhost:8080/service/get-all-customers"
     },
 
     // Service Activation/Deactivation (Port 8083)
     {
         route: "/registerPackage",
-        target: "http://localhost:8083/registerPackage"
+        target: "http://localhost:8083/api/v1/package/registerPackage"
     },
     {
         route: "/updatePackage",
-        target: "http://localhost:8083/updatePackage"
+        target: "http://localhost:8083/api/v1/package/updatePackage"
     },
     {
         route: "/getAllPackages",
-        target: "http://localhost:8083/getAllPackages"
+        target: "http://localhost:8083/api/v1/package/getAllPackages"
     },
     {
         route: "/getActivePackages",
-        target: "http://localhost:8083/getActivePackages"
+        target: "http://localhost:8083/api/v1/package/getActivePackages"
     },
     {
         route: "/activatePackage",
-        target: "http://localhost:8083/activatePackage"
+        target: "http://localhost:8083/api/v1/package/activatePackage"
+    },
+    {
+        route: "/deactivatePackage",
+        target: "http://localhost:8083/api/v1/package/deactivatePackage"
     },
 
     // Chat (Port 8084)
