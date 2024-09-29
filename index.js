@@ -19,11 +19,11 @@ const services = [
     },
     {
         route: "/createBillingDetails",
-        target: "http://localhost:8081/details"
+        target: "http://localhost:8081/api/billing/details",
     },
     {
         route: "/getBillingDetails",
-        target: "http://localhost:8081/details"
+        target: "http://localhost:8081/api/billing/details",
     },
     {
         route: "/updateBillingDetails",
@@ -163,7 +163,6 @@ setInterval(() => {
     });
 }, interval);
 
-
 function rateLimitAndTimeout(req, res, next) {
     const ip = req.ip;
 
@@ -195,9 +194,7 @@ function rateLimitAndTimeout(req, res, next) {
     next();
 }
 
-
 app.use(rateLimitAndTimeout);
-
 
 services.forEach(({ route, target }) => {
 
@@ -213,8 +210,6 @@ services.forEach(({ route, target }) => {
     app.use(route, rateLimitAndTimeout, createProxyMiddleware(proxyOptions));
 });
 
-
-
 app.use((_req, res) => {
     res.status(404).json({
         code: 404,
@@ -224,10 +219,7 @@ app.use((_req, res) => {
     });
 });
 
-
 const PORT = process.env.PORT || 5000;
-
-
 
 app.listen(PORT, () => {
     console.log(`Gateway is running on port ${PORT}`);
