@@ -10,130 +10,127 @@ app.use(cors());
 app.use(helmet());
 app.use(morgan("combined"));
 app.disable("x-powered-by");
-app.use(express.json()); // Middleware to parse JSON bodies
 
-// Define the services with proper target paths
 const services = [
     // Billing (Port 8081)
     {
         route: "/makePayment",
-        target: "http://localhost:8081"
+        target: "http://localhost:8081/makePayment"
     },
     {
         route: "/createBillingDetails",
         target: "http://localhost:8081/api/billing/details",
-        method: "POST"
     },
     {
         route: "/getBillingDetails",
         target: "http://localhost:8081/api/billing/details",
-        method: "GET"
     },
     {
         route: "/updateBillingDetails",
-        target: "http://localhost:8081"
+        target: "http://localhost:8081/updateBillingDetails"
     },
     {
         route: "/getPaymentHistory",
-        target: "http://localhost:8081"
+        target: "http://localhost:8081/getPaymentHistory"
     },
 
     // Notification (Port 8082)
     {
         route: "/sendEmail",
-        target: "http://localhost:8082"
+        target: "http://localhost:8082/sendEmail"
     },
     {
         route: "/sendNotification",
-        target: "http://localhost:8082"
+        target: "http://localhost:8082/sendNotification"
     },
     {
         route: "/sendSMS",
-        target: "http://localhost:8082"
+        target: "http://localhost:8082/sendSMS"
     },
     {
         route: "/sendBroadcastNotification",
-        target: "http://localhost:8082"
+        target: "http://localhost:8082/sendBroadcastNotification"
     },
 
     // User Management (Port 8080)
     {
         route: "/register",
-        target: "http://localhost:8080"
+        target: "http://localhost:8080/register"
     },
     {
         route: "/login",
-        target: "http://localhost:8080"
+        target: "http://localhost:8080/login"
     },
     {
         route: "/getAllUsers",
-        target: "http://localhost:8080"
+        target: "http://localhost:8080/getAllUsers"
     },
     {
         route: "/getUserById",
-        target: "http://localhost:8080"
+        target: "http://localhost:8080/getUserById"
     },
     {
         route: "/deleteUser",
-        target: "http://localhost:8080"
+        target: "http://localhost:8080/deleteUser"
     },
     {
         route: "/updateUser",
-        target: "http://localhost:8080"
+        target: "http://localhost:8080/updateUser"
     },
     {
         route: "/getPhoneNumber",
-        target: "http://localhost:8080"
+        target: "http://localhost:8080/getPhoneNumber"
     },
     {
         route: "/getEmail",
-        target: "http://localhost:8080"
+        target: "http://localhost:8080/getEmail"
     },
     {
         route: "/getCustomersList",
-        target: "http://localhost:8080"
+        target: "http://localhost:8080/getCustomersList"
     },
 
     // Service Activation/Deactivation (Port 8083)
     {
         route: "/registerPackage",
-        target: "http://localhost:8083"
+        target: "http://localhost:8083/registerPackage"
     },
     {
         route: "/updatePackage",
-        target: "http://localhost:8083"
+        target: "http://localhost:8083/updatePackage"
     },
     {
         route: "/getAllPackages",
-        target: "http://localhost:8083"
+        target: "http://localhost:8083/getAllPackages"
     },
     {
         route: "/getActivePackages",
-        target: "http://localhost:8083"
+        target: "http://localhost:8083/getActivePackages"
     },
     {
         route: "/activatePackage",
-        target: "http://localhost:8083"
+        target: "http://localhost:8083/activatePackage"
     },
 
     // Chat (Port 8084)
     {
         route: "/sendMessage",
-        target: "http://localhost:8084"
+        target: "http://localhost:8084/sendMessage"
     },
     {
         route: "/createChat",
-        target: "http://localhost:8084"
+        target: "http://localhost:8084/createChat"
     },
     {
         route: "/viewChats",
-        target: "http://localhost:8084"
+        target: "http://localhost:8084/viewChats"
     },
     {
         route: "/getMessageHistory",
-        target: "http://localhost:8084"
+        target: "http://localhost:8084/getMessageHistory"
     }
 ];
+
 
 const rateLimit = 20;
 const interval = 60 * 1000;
@@ -151,7 +148,9 @@ function rateLimitAndTimeout(req, res, next) {
 
     requestCounts[ip] = (requestCounts[ip] || 0) + 1;
 
+
     if (requestCounts[ip] > rateLimit) {
+
         return res.status(429).json({
             code: 429,
             status: "Error",
@@ -160,7 +159,9 @@ function rateLimitAndTimeout(req, res, next) {
         });
     }
 
+
     req.setTimeout(15000, () => {
+
         res.status(504).json({
             code: 504,
             status: "Error",
@@ -175,43 +176,26 @@ function rateLimitAndTimeout(req, res, next) {
 
 app.use(rateLimitAndTimeout);
 
-// Use the services array to set up the proxy
-services.forEach(({ route, target, method }) => {
+services.forEach(({ route, target }) => {
+
     const proxyOptions = {
         target,
         changeOrigin: true,
         pathRewrite: {
-            [`^${route}`]: "", // Remove the route part from the path
+            [`^${route}`]: "",
         },
-        onProxyReq: (proxyReq, req, res) => {
-            if (method) {
-                proxyReq.method = method; // Set method if specified
-            }
-        },
-        onError: (err, req, res) => {
-            console.error('Proxy error:', err); // Log the error
-            res.status(500).json({
-                code: 500,
-                status: "Error",
-                message: "Proxy error occurred.",
-                data: null,
-            });
-        }
     };
 
-    app.use(route, createProxyMiddleware(proxyOptions));
+
+    app.use(route, rateLimitAndTimeout, createProxyMiddleware(proxyOptions));
 });
 
-// Catch-all route for 404
-app.use((req, res) => {
-    const service = services.find(service => req.path.startsWith(service.route));
-    const targetPath = service ? service.target : 'Not defined';
-    
+app.use((_req, res) => {
     res.status(404).json({
-        timestamp: new Date().toISOString(),
-        status: 404,
-        error: "Not Found",
-        path: targetPath,
+        code: 404,
+        status: "Error",
+        message: "Route not found.",
+        data: null,
     });
 });
 
