@@ -244,8 +244,8 @@ const services = [
     pathRewrite: { "^/createChat": "" },
   },
   {
-    route: "/viewChats",
-    target: "http://localhost:8084/viewChats",
+    route: "/viewChat/:id",
+    target: "http://localhost:8084/api/chat",
     method: "GET",
     pathRewrite: { "^/viewChats": "" },
   },
