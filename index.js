@@ -212,21 +212,21 @@ const services = [
     pathRewrite: { "^/getAllPackages": "" },
   },
   {
-    route: "/getActivePackages",
+    route: "/getActivePackages/:id",
     target: "http://localhost:8083/api/v1/package/getActivePackages",
     method: "GET",
     pathRewrite: { "^/getActivePackages": "" },
   },
   {
-    route: "/activatePackage",
+    route: "/activatePackage/:id",
     target: "http://localhost:8083/api/v1/package/activatePackage",
     method: "POST",
     pathRewrite: { "^/activatePackage": "" },
   },
   {
-    route: "/deactivatePackage",
+    route: "/deactivatePackage/:id",
     target: "http://localhost:8083/api/v1/package/deactivatePackage",
-    method: "POST",
+    method: "DELETE",
     pathRewrite: { "^/deactivatePackage": "" },
   },
 
