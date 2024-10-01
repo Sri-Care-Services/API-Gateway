@@ -192,43 +192,31 @@ const services = [
     pathRewrite: { "^/sendBroadcastNotification": "" },
   },
 
-  // Service Activation/Deactivation (Port 8083)
-  {
-    route: "/registerPackage",
-    target: "http://localhost:8083/api/v1/package/registerPackage",
-    method: "POST",
-    pathRewrite: { "^/registerPackage": "" },
-  },
-  {
-    route: "/updatePackage",
-    target: "http://localhost:8083/api/v1/package/updatePackage",
-    method: "PUT",
-    pathRewrite: { "^/updatePackage": "" },
-  },
-  {
-    route: "/getAllPackages",
-    target: "http://localhost:8083/api/v1/package/getAllPackages",
-    method: "GET",
-    pathRewrite: { "^/getAllPackages": "" },
-  },
-  {
-    route: "/getActivePackages",
-    target: "http://localhost:8083/api/v1/package/getActivePackages",
-    method: "GET",
-    pathRewrite: { "^/getActivePackages": "" },
-  },
-  {
-    route: "/activatePackage",
-    target: "http://localhost:8083/api/v1/package/activatePackage",
-    method: "POST",
-    pathRewrite: { "^/activatePackage": "" },
-  },
-  {
-    route: "/deactivatePackage",
-    target: "http://localhost:8083/api/v1/package/deactivatePackage",
-    method: "POST",
-    pathRewrite: { "^/deactivatePackage": "" },
-  },
+    // Service Activation/Deactivation (Port 8083)
+    {
+        route: "/registerPackage",
+        target: "http://localhost:8083/api/v1/package/registerPackage"
+    },
+    {
+        route: "/updatePackage",
+        target: "http://localhost:8083/api/v1/package/updatePackage"
+    },
+    {
+        route: "/getAllPackages",
+        target: "http://localhost:8083/api/v1/package/getAllPackages"
+    },
+    {
+        route: "/getActivePackages",
+        target: "http://localhost:8083/api/v1/package/getActivePackages"
+    },
+    {
+        route: "/activatePackage",
+        target: "http://localhost:8083/api/v1/package/activatePackage"
+    },
+    {
+        route: "/deactivatePackage",
+        target: "http://localhost:8083/api/v1/package/deactivatePackage"
+    },
 
   // Chat (Port 8084)
   {
