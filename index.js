@@ -212,7 +212,7 @@ const services = [
     pathRewrite: { "^/getAllPackages": "" },
   },
   {
-    route: "/getActivePackages",
+    route: "/getActivePackages/:id",
     target: "http://localhost:8083/api/v1/package/getActivePackages",
     method: "GET",
     pathRewrite: { "^/getActivePackages": "" },
