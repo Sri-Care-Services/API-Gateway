@@ -224,9 +224,9 @@ const services = [
     pathRewrite: { "^/activatePackage": "" },
   },
   {
-    route: "/deactivatePackage",
+    route: "/deactivatePackage/:id",
     target: "http://localhost:8083/api/v1/package/deactivatePackage",
-    method: "POST",
+    method: "DELETE",
     pathRewrite: { "^/deactivatePackage": "" },
   },
 
